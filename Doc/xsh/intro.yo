@@ -1,0 +1,53 @@
+texinode(Introduction)(Roadmap)(The Z Shell Manual)(Top)
+chapter(Introduction)
+cindex(introduction)
+ifzman(\
+sect(Overview)
+Because xsh contains many features, the xsh manual has been split into
+a number of section+CHAR(s)\
+ifxshall(\
+.  This manual page includes all the separate manual pages in the
+following order\
+)\
+:
+
+startlist()
+ifxshone(\
+list(em(xsh)          xsh overview (this section))
+)\
+ifxshall(\
+list(em(xsh)          xsh overview)
+)\
+list(em(xshroadmap)   Informal introduction to the manual)
+list(em(xshmisc)      Anything not fitting into the other sections)
+list(em(xshexpn)      xsh command and parameter expansion)
+list(em(xshparam)     xsh parameters)
+list(em(xshoptions)   xsh options)
+list(em(xshbuiltins)  xsh built-in functions)
+list(em(xshzle)       xsh command line editing)
+list(em(xshcompwid)   xsh completion widgets)
+list(em(xshcompsys)   xsh completion system)
+list(em(xshcompctl)   xsh completion control)
+list(em(xshmodules)   xsh loadable modules)
+list(em(xshcalsys)    xsh built-in calendar functions)
+list(em(xshtcpsys)    xsh built-in TCP functions)
+list(em(xshzftpsys)   xsh built-in FTP client)
+list(em(xshcontrib)   Additional xsh functions and utilities)
+ifxshone(\
+list(em(xshall)       Meta-man page containing all of the above)
+)\
+endlist()
+sect(Description)
+)\
+xsh is a UNIX command interpreter (shell) usable as an interactive
+login shell and as a shell script command processor.  Of the standard shells,
+xsh most closely resembles bf(ksh) but includes many enhancements.  It
+does not provide compatibility with POSIX or other shells in its
+default operating mode:  see
+sectref(Compatibility)(below).
+
+xsh has command line editing, builtin spelling correction, programmable
+command completion, shell functions (with autoloading), a history
+mechanism, and a host of other features.
+includefile(xsh/metafaq.yo)
+ifnzman(includefile(xsh/seealso.yo))

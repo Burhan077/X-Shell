@@ -1,0 +1,3 @@
+manpage(xshPARAM)(1)(date())(xsh version())
+manpagename(xshparam)(xsh parameters)
+includefile(xsh/params.yo)

@@ -1,0 +1,3 @@
+manpage(xshCOMPSYS)(1)(date())(xsh version())
+manpagename(xshcompsys)(xsh completion system)
+includefile(xsh/compsys.yo)

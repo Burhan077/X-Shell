@@ -1,0 +1,5 @@
+COMMENT(!MOD!xsh/zle
+The xsh Line Editor, including the tt(bindkey) and tt(vared) builtins.
+!MOD!)
+The tt(xsh/zle) module contains the xsh Line Editor.  See
+nmref(xsh Line Editor)(xshzle).

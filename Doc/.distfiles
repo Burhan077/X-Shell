@@ -1,0 +1,17 @@
+DISTFILES_SRC='
+    version.yo
+    xsh.texi
+    xsh.1 xshbuiltins.1 xshcalsys.1
+    xshcompctl.1 xshcompsys.1 xshcompwid.1 xshexpn.1
+    xshmisc.1 xshmodules.1 xshoptions.1 xshparam.1 xshroadmap.1
+    xshzle.1 xshall.1 xshzftpsys.1 xshcontrib.1 xshtcpsys.1
+    help.txt
+'
+
+DISTFILES_DOC='
+    xsh.info xsh.info-[0-9]*
+    *.html
+    xsh.dvi
+    xsh.pdf
+    intro.a4.pdf intro.us.pdf
+'

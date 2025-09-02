@@ -1,0 +1,3 @@
+manpage(xshTCPSYS)(1)(date())(xsh version())
+manpagename(xshtcpsys)(xsh tcp system)
+includefile(xsh/tcpsys.yo)

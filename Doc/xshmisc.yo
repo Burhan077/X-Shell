@@ -1,0 +1,10 @@
+manpage(xshMISC)(1)(date())(xsh version())
+manpagename(xshmisc)(everything and then some)
+includefile(xsh/grammar.yo)
+includefile(xsh/redirect.yo)
+includefile(xsh/exec.yo)
+includefile(xsh/func.yo)
+includefile(xsh/jobs.yo)
+includefile(xsh/arith.yo)
+includefile(xsh/cond.yo)
+includefile(xsh/prompt.yo)

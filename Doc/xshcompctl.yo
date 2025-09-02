@@ -1,0 +1,3 @@
+manpage(xshCOMPCTL)(1)(date())(xsh version())
+manpagename(xshcompctl)(xsh programmable completion)
+includefile(xsh/compctl.yo)

@@ -1,0 +1,3 @@
+manpage(xshCOMPWID)(1)(date())(xsh version())
+manpagename(xshcompwid)(xsh completion widgets)
+includefile(xsh/compwid.yo)

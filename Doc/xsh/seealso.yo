@@ -1,0 +1,33 @@
+texinode(See Also)()(The xsh Userguide)(Introduction)
+sect(See Also)
+manref(sh)(1),
+manref(csh)(1),
+manref(tcsh)(1),
+manref(rc)(1),
+manref(bash)(1),
+manref(ksh)(1)\
+ifxshone(\
+,
+zmanref(xshall),
+zmanref(xshbuiltins),
+zmanref(xshcalsys),
+zmanref(xshcompwid),
+zmanref(xshcompsys),
+zmanref(xshcompctl),
+zmanref(xshcontrib),
+zmanref(xshexpn),
+zmanref(xshmisc),
+zmanref(xshmodules),
+zmanref(xshoptions),
+zmanref(xshparam),
+zmanref(xshroadmap),
+zmanref(xshtcpsys),
+zmanref(xshzftpsys),
+zmanref(xshzle)\
+)\
+
+
+bf(IEEE Standard for information Technology -
+Portable Operating System Interface (POSIX) -
+Part 2: Shell and Utilities),
+IEEE Inc, 1993, ISBN 1-55937-255-9.

@@ -1,0 +1,94 @@
+ifzman(\
+IFDEF(xshALL)(\
+def(ifxshone)(1)()\
+def(ifxshall)(1)(ARG1)\
+manpage(xshALL)(1)(date())(xsh version())
+manpagename(xshall)(the Z shell meta-man page)
+)(\
+def(ifxshone)(1)(ARG1)\
+def(ifxshall)(1)()\
+manpage(xsh)(1)(date())(xsh version())
+manpagename(xsh)(the Z shell)
+)\
+)\
+ifnzman(\
+def(ifxshone)(1)()\
+def(ifxshall)(1)()\
+)\
+ifztexi(
+texinfo(xsh.info)(xsh)
+NOTRANS(@iftex
+@finalout
+@end iftex)
+texititlepage()
+texititle(The Z Shell Manual)
+texisubtitle(Version version())
+texisubtitle(Updated date())
+texiauthor(Original documentation by Paul Falstad)
+texipage()
+This is a texinfo version of the documentation for the Z Shell, originally by 
+Paul Falstad.
+
+Permission is granted to make and distribute verbatim copies of
+this manual provided the copyright notice and this permission notice
+are preserved on all copies.
+
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided also that the
+entire resulting derived work is distributed under the terms of a
+permission notice identical to this one.
+
+Permission is granted to copy and distribute translations of this manual
+into another language, under the above conditions for modified versions.
+texiendtitlepage()
+NOTRANS(@contents)
+)\
+ifnzman(includefile(xsh/manual.yo))
+includefile(xsh/intro.yo)
+ifnzman(includefile(xsh/roadmap.yo))
+includefile(xsh/invoke.yo)
+includefile(xsh/files.yo)
+ifnzman(includefile(xsh/grammar.yo))
+ifnzman(includefile(xsh/redirect.yo))
+ifnzman(includefile(xsh/exec.yo))
+ifnzman(includefile(xsh/func.yo))
+ifnzman(includefile(xsh/jobs.yo))
+ifnzman(includefile(xsh/arith.yo))
+ifnzman(includefile(xsh/cond.yo))
+ifnzman(includefile(xsh/prompt.yo))
+ifnzman(includefile(xsh/expn.yo))
+ifnzman(includefile(xsh/params.yo))
+ifnzman(includefile(xsh/options.yo))
+ifnzman(includefile(xsh/builtins.yo))
+ifnzman(includefile(xsh/zle.yo))
+ifnzman(includefile(xsh/compwid.yo))
+ifnzman(includefile(xsh/compsys.yo))
+ifnzman(includefile(xsh/compctl.yo))
+ifnzman(includefile(xsh/modules.yo))
+ifnzman(includefile(xsh/calsys.yo))
+ifnzman(includefile(xsh/tcpsys.yo))
+ifnzman(includefile(xsh/zftpsys.yo))
+ifnzman(includefile(xsh/contrib.yo))
+ifxshall(\
+def(source)(1)(NOTRANS(.so )man1/ARG1+NOTRANS(.)1)\
+CMT()
+source(xshroadmap)
+source(xshmisc)
+source(xshexpn)
+source(xshparam)
+source(xshoptions)
+source(xshbuiltins)
+source(xshzle)
+source(xshcompwid)
+source(xshcompsys)
+source(xshcompctl)
+source(xshmodules)
+source(xshcalsys)
+source(xshtcpsys)
+source(xshzftpsys)
+source(xshcontrib)
+manpage(xshALL)(1)(date())(xsh version())
+)\
+ifzman(includefile(xsh/filelist.yo))
+ifzman(includefile(xsh/seealso.yo))
+ifnzman(includefile(xsh/index.yo))

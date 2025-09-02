@@ -1,0 +1,437 @@
+#
+# Makefile for Doc subdirectory
+#
+# Copyright (c) 1995-1997 Richard Coleman
+# All rights reserved.
+#
+# Permission is hereby granted, without written agreement and without
+# license or royalty fees, to use, copy, modify, and distribute this
+# software and to distribute modified versions of this software for any
+# purpose, provided that the above copyright notice and the following
+# two paragraphs appear in all copies of this software.
+#
+# In no event shall Richard Coleman or the xsh Development Group be liable
+# to any party for direct, indirect, special, incidental, or consequential
+# damages arising out of the use of this software and its documentation,
+# even if Richard Coleman and the xsh Development Group have been advised of
+# the possibility of such damage.
+#
+# Richard Coleman and the xsh Development Group specifically disclaim any
+# warranties, including, but not limited to, the implied warranties of
+# merchantability and fitness for a particular purpose.  The software
+# provided hereunder is on an "as is" basis, and Richard Coleman and the
+# xsh Development Group have no obligation to provide maintenance,
+# support, updates, enhancements, or modifications.
+#
+
+subdir = Doc
+dir_top = ..
+
+@VERSION_MK@
+
+# source/build directories
+VPATH           = @srcdir@
+sdir            = @srcdir@
+sdir_top        = @top_srcdir@
+INSTALL         = @INSTALL@
+LN_S            = @LN_S@
+
+@DEFS_MK@
+
+MAKEINFO = makeinfo
+TEXI2DVI = @TEXI2DVI@
+DVIPS = dvips
+TEXI2PDF  = @TEXI2PDF@
+TEXI2HTML = @TEXI2HTML@
+SET_TEXI2ANY_VAR = @SET_TEXI2ANY_VAR@
+PAPERSIZE = @PAPERSIZE@
+
+.SUFFIXES: .yo .1
+
+# man pages to install
+MAN = xsh.1 xshbuiltins.1 xshcalsys.1 xshcompctl.1 xshcompwid.1 xshcompsys.1 \
+xshcontrib.1 xshexpn.1 xshmisc.1 xshmodules.1 \
+xshoptions.1 xshparam.1 xshroadmap.1 xshtcpsys.1 xshzftpsys.1 xshzle.1 \
+xshall.1
+
+# yodl documentation
+
+YODLDOC = $(MAN) texi
+
+MODDOCSRC = \
+xsh/mod_attr.yo xsh/mod_cap.yo xsh/mod_clone.yo \
+xsh/mod_compctl.yo xsh/mod_complete.yo xsh/mod_complist.yo \
+xsh/mod_computil.yo xsh/mod_curses.yo \
+xsh/mod_datetime.yo xsh/mod_db_gdbm.yo xsh/mod_deltochar.yo \
+xsh/mod_example.yo xsh/mod_files.yo \
+xsh/mod_hlgroup.yo xsh/mod_langinfo.yo \
+xsh/mod_ksh93.yo xsh/mod_mapfile.yo xsh/mod_mathfunc.yo \
+xsh/mod_nearcolor.yo xsh/mod_newuser.yo \
+xsh/mod_parameter.yo xsh/mod_pcre.yo xsh/mod_private.yo \
+xsh/mod_regex.yo xsh/mod_random.yo xsh/mod_sched.yo xsh/mod_socket.yo \
+xsh/mod_stat.yo  xsh/mod_system.yo xsh/mod_tcp.yo \
+xsh/mod_termcap.yo xsh/mod_terminfo.yo \
+xsh/mod_watch.yo \
+xsh/mod_zftp.yo xsh/mod_zle.yo xsh/mod_zleparameter.yo \
+xsh/mod_zprof.yo xsh/mod_zpty.yo xsh/mod_zselect.yo \
+xsh/mod_zutil.yo
+
+YODLSRC = zmacros.yo zman.yo ztexi.yo xsh/arith.yo xsh/builtins.yo \
+xsh/calsys.yo \
+xsh/compat.yo xsh/compctl.yo xsh/compsys.yo xsh/compwid.yo xsh/cond.yo \
+xsh/contrib.yo xsh/exec.yo xsh/expn.yo \
+xsh/filelist.yo xsh/files.yo \
+xsh/func.yo xsh/grammar.yo xsh/manual.yo \
+xsh/index.yo xsh/intro.yo xsh/invoke.yo xsh/jobs.yo xsh/metafaq.yo \
+xsh/modules.yo xsh/modlist.yo xsh/modmenu.yo xsh/manmodmenu.yo $(MODDOCSRC) \
+xsh/options.yo xsh/params.yo xsh/prompt.yo xsh/redirect.yo xsh/restricted.yo \
+xsh/seealso.yo xsh/tcpsys.yo xsh/zftpsys.yo xsh/zle.yo
+
+# ========== DEPENDENCIES FOR BUILDING ==========
+
+all: man $(runhelp) texi ../META-FAQ
+.PHONY: all
+
+everything: all html info xsh_a4.dvi xsh_us.dvi xsh_a4.pdf xsh_us.pdf \
+            intro.a4.pdf intro.us.pdf
+.PHONY: everything
+
+dvi: xsh.dvi
+.PHONY: dvi
+
+xsh.dvi xsh_a4.dvi xsh_us.dvi: $(sdir)/xsh.texi
+	if test $@ = xsh_us.dvi || \
+	  { test $@ = xsh.dvi && test "$(PAPERSIZE)" = us; }; then \
+	  $(TEXI2DVI) -o $@ $(sdir)/xsh.texi; \
+	else \
+	  $(TEXI2DVI) -o $@ -t @afourpaper $(sdir)/xsh.texi; \
+	fi
+
+pdf: xsh.pdf intro.pdf
+.PHONY: pdf
+
+xsh.pdf xsh_a4.pdf xsh_us.pdf: $(sdir)/xsh.texi
+	if test $@ = xsh_us.pdf || \
+	  { test $@ = xsh.pdf && test "$(PAPERSIZE)" = us; }; then \
+	  $(TEXI2PDF) -o $@ $(sdir)/xsh.texi; \
+	else \
+	  $(TEXI2PDF) -o $@ -t @afourpaper $(sdir)/xsh.texi; \
+	fi
+
+intro.pdf intro.a4.pdf intro.us.pdf: $(sdir)/intro.ms
+	if test $@ = intro.us.pdf || \
+	  { test $@ = intro.pdf && test "$(PAPERSIZE)" = us; }; then \
+	  pdfroff -mspdf --no-kill-null-pages -P-pletter --pdf-output=$@ $(sdir)/intro.ms; \
+	else \
+	  pdfroff -mspdf --no-kill-null-pages -P-pa4 --pdf-output=$@ $(sdir)/intro.ms; \
+	fi
+
+intro.html: $(sdir)/intro.ms
+	if groff -ms -Thtml -P-jintro $(sdir)/intro.ms > tmp.html; then \
+	  mv tmp.html $@; \
+	else \
+	  rm -f tmp.html; false; \
+	fi
+
+texi: $(sdir)/xsh.texi
+.PHONY: texi
+
+$(sdir)/xsh.texi: version.yo
+	case '$(YODL)' in :*) touch $@ ;; *) \
+	    $(YODL) -o $@ -I$(sdir) -w ztexi.yo version.yo xsh.yo; \
+	    test -f $@ \
+	;; esac
+
+info: xsh.info
+.PHONY: info
+
+xsh.info: $(sdir)/xsh.texi
+	$(MAKEINFO) $(sdir)/xsh.texi
+
+.yo.1:
+	@case $@ in \
+	  */*) target=$@ ;; \
+	  *) target=$@ ;; \
+	esac; \
+	case '$(YODL)' in :*) touch $$target ;; *) \
+	    echo $(YODL) -o $$target -I$(sdir):. -w zman.yo version.yo $< ; \
+	    $(YODL) -I$(sdir):. -w zman.yo version.yo $< | \
+	      sed -e '1s/\\-/-/g' -e '/^\.'\''/d' -e 's/\(\\fB\)*'\''/\1\\\&'\''/' > $$target \
+	;; esac; \
+
+# These targets are no longer made by default, nor
+# distributed with the -doc.tar.gz, since the PDF
+# output is generally better.  However, they still work.
+ps: us_ps a4_ps
+.PHONY: ps
+
+us_ps: xsh_us.ps
+.PHONY: us_ps
+
+xsh_us.ps: xsh_us.dvi
+	$(DVIPS) -t letter -o $@ xsh_us.dvi
+
+a4_ps: xsh_a4.ps
+.PHONY: a4_ps
+
+xsh_a4.ps: xsh_a4.dvi
+	$(DVIPS) -t a4 -o $@ xsh_a4.dvi
+
+html: xsh_toc.html intro.html
+.PHONY: html
+
+xsh_toc.html: $(sdir)/xsh.texi texi2html.conf
+	$(TEXI2HTML) --output . --ifinfo --split=chapter --node-files \
+	             --init-file texi2html.conf $(sdir)/xsh.texi
+
+xshall.1: xsh.yo
+	case $@ in \
+	  */*) target=$@ ;; \
+	  *) target=$@ ;; \
+	esac; \
+	case '$(YODL)' in :*) touch $$target ;; *) \
+	    echo $(YODL) -o $$target -I$(sdir) -DxshALL -w zman.yo version.yo xsh.yo; \
+	    $(YODL) -I$(sdir) -DxshALL -w zman.yo version.yo xsh.yo | sed -e '1s/\\-/-/g' -e '/^\.'\''/d' > $$target \
+	;; esac; \
+
+../META-FAQ: META-FAQ.yo xsh/metafaq.yo
+	case '$(YODL)' in :*) touch $(sdir_top)/META-FAQ ;; *) \
+	    $(YODL) -I$(sdir) META-FAQ.yo | sed -e '/NEXTLINE/N' -e '/DELLINE/d' -e '/^SECTHEAD$$/{N;s/^SECTHEAD.//;h;s/./-/g;H;g;}' -e 's/  *$$//' -e '/comment(.*)/d' > $(sdir_top)/META-FAQ \
+	;; esac
+
+$(YODLDOC): version.yo
+
+$(sdir)/xsh.texi: $(YODLSRC)
+
+man: $(MAN)
+.PHONY: man
+
+runhelp: help.txt
+.PHONY: runhelp
+
+help.txt: xshbuiltins.1
+	@-rm -f $@ help/*
+	perl $(sdir_top)/Util/helpfiles \
+	    xshbuiltins.1 help help.txt \
+	    || rm -f help.txt help/*
+
+$(MAN): zmacros.yo zman.yo
+
+xsh.1 xshall.1: xsh/intro.yo xsh/metafaq.yo xsh/invoke.yo xsh/files.yo \
+                xsh/filelist.yo xsh/filelist.yo xsh/seealso.yo \
+                xsh/compat.yo xsh/restricted.yo
+
+xshbuiltins.1: xsh/builtins.yo
+
+xshcalsys.1: xsh/calsys.yo
+
+xshcompctl.1: xsh/compctl.yo
+
+xshcompwid.1: xsh/compwid.yo
+
+xshcompsys.1: xsh/compsys.yo
+
+xshcontrib.1: xsh/contrib.yo
+
+xshexpn.1: xsh/expn.yo
+
+xshmisc.1: xsh/grammar.yo xsh/redirect.yo xsh/exec.yo xsh/func.yo \
+           xsh/jobs.yo xsh/arith.yo xsh/cond.yo xsh/compat.yo \
+           xsh/prompt.yo
+
+xshmodules.1: xsh/modules.yo xsh/modlist.yo xsh/modmenu.yo $(MODDOCSRC)
+
+xshoptions.1: xsh/options.yo
+
+xshparam.1: xsh/params.yo
+
+xshroadmap.1: xsh/roadmap.yo
+
+xshtcpsys.1: xsh/tcpsys.yo
+
+xshzftpsys.1: xsh/zftpsys.yo
+
+xshzle.1: xsh/zle.yo
+
+# This should depend on config.status to get the /etc files right
+# but that would introduce a dependency on Yodl in shipped versions
+# of the shell that we want to avoid.
+version.yo: $(sdir_top)/Config/version.mk
+	( \
+	  echo 'IFDEF(INCWSLEVEL)(INCWSLEVEL())(STARTDEF())'; \
+	  echo 'def(version)(0)('$(VERSION)')'; \
+	  echo 'def(date)(0)('$(VERSION_DATE)')'; \
+	  echo 'def(xshenv)(0)(@xshenv@)'; \
+	  echo 'def(zprofile)(0)(@zprofile@)'; \
+	  echo 'def(xshrc)(0)(@xshrc@)'; \
+	  echo 'def(zlogin)(0)(@zlogin@)'; \
+	  echo 'def(zlogout)(0)(@zlogout@)'; \
+	  echo 'IFDEF(DECWSLEVEL)(DECWSLEVEL())(ENDDEF())#' | tr '#' '\\'; \
+	) > $(sdir)/version.yo
+
+texi2html.conf: $(sdir_top)/Config/version.mk
+	d=`echo $(VERSION_DATE)`; \
+	v="<font size=\"-1\">xsh version $(VERSION), released on $$d.</font>"; \
+	case '$(TEXI2HTML)' in \
+	  *texi2any*) echo "$(SET_TEXI2ANY_VAR)('PRE_BODY_CLOSE','$$v');" ;; \
+	  *) echo "\$$PRE_BODY_CLOSE = '$$v';" ;; \
+	esac > $@
+
+xsh/modlist.yo: $(MODDOCSRC)
+	( \
+	    echo "startitem()"; \
+	    for modfile in $(MODDOCSRC); do \
+		sed -n -e '1{s|^COMMENT(!MOD!\(.*\)$$|item(tt(\1))(|;p;d;}' \
+		    -e '/^!MOD!)$$/q;p' \
+		    < $(sdir)/$$modfile; \
+		echo ")"; \
+	    done; \
+	    echo "enditem()"; \
+	    echo "includefile(xsh/modmenu.yo)"; \
+	    set '' $(MODDOCSRC); \
+	    mod1= mod2= mod3=; \
+	    test ".$$2" = . || \
+		mod2=`sed -n '1{s|^COMMENT(!MOD!||;p;q;}' < $(sdir)/$$2`; \
+	    while test ".$$2" != .; do \
+		mod3=; \
+		test ".$$3" = . || \
+		    mod3=`sed -n '1{s|^COMMENT(!MOD!||;p;q;}' < $(sdir)/$$3`; \
+		echo "texinode(The $$mod2 Module)($${mod3:+The $$mod3 Module})($${mod1:+The $$mod1 Module})(xsh Modules)"; \
+		echo "sect(The $$mod2 Module)"; \
+		echo "includefile($${2})"; \
+		shift; \
+		mod1=$$mod2; \
+		mod2=$$mod3; \
+	    done \
+	) > $(sdir)/xsh/modlist.yo
+
+xsh/modmenu.yo: $(MODDOCSRC)
+	( \
+	    echo "startmenu()"; \
+	    for modfile in $(MODDOCSRC); do \
+		sed -n '1{s|^COMMENT(!MOD!\(.*\)$$|menu(The \1 Module)|;p;q;}' \
+		    < $(sdir)/$$modfile; \
+	    done; \
+	    echo "endmenu()" \
+	) > $(sdir)/xsh/modmenu.yo
+
+xsh/manmodmenu.yo: $(MODDOCSRC)
+	( \
+	    for modfile in $(MODDOCSRC); do \
+		sed -n '1{s|^COMMENT(!MOD!\(.*\)$$|menu(The \1 Module)|;p;q;}' \
+		    < $(sdir)/$$modfile; \
+	    done \
+	) > $(sdir)/xsh/manmodmenu.yo
+
+# ========== DEPENDENCIES FOR INSTALLING ==========
+
+# install just installs the manual and runhelp pages
+install: install.man install.runhelp
+.PHONY: install
+
+# uninstall just uninstalls the manual and runhelp pages
+uninstall: uninstall.man uninstall.runhelp
+.PHONY: uninstall
+
+# install man pages, creating install directory if necessary
+install.man: man
+	${SHELL} $(sdir_top)/mkinstalldirs $(DESTDIR)$(mandir)/man1
+	for file in $(MAN); do \
+	    test -s $$file || exit 1; \
+	    $(INSTALL_DATA) $$file $(DESTDIR)$(mandir)/man1/`echo $$file | sed 's|xsh|$(txsh)|'` || exit 1; \
+	done
+.PHONY: install.man
+
+# install runhelp pages, creating install directory if necessary
+install.runhelp: $(runhelp)
+	if test x"$(runhelpdir)" != x""; then \
+	    ${SHELL} $(sdir_top)/mkinstalldirs $(DESTDIR)$(runhelpdir); \
+	    $(INSTALL_DATA) help/* $(DESTDIR)$(runhelpdir); \
+	    while read from to; do \
+	        rm -f $(DESTDIR)$(runhelpdir)/$$to || : ; \
+	        $(LN_S) $$from $(DESTDIR)$(runhelpdir)/$$to; \
+	    done < help.txt; \
+	fi
+.PHONY: install.runhelp
+
+# install info pages, creating install directory if necessary
+install.info: texi
+	${SHELL} $(sdir_top)/mkinstalldirs $(DESTDIR)$(infodir)
+	rm -rf infodir
+	mkdir infodir
+	if ( \
+	    sed '/^@setfilename/s|xsh|$(txsh)|' \
+		< $(sdir)/xsh.texi > infodir/txsh.texi && \
+	    (cd infodir && $(MAKEINFO) txsh.texi) && \
+	    for file in infodir/$(txsh).info*; do \
+		$(INSTALL_DATA) $$file $(DESTDIR)$(infodir) || exit 1; \
+	    done \
+	); then \
+	    if $(SHELL) -c 'install-info --version' >/dev/null 2>&1; then \
+	      install-info --info-dir=$(DESTDIR)$(infodir) \
+	        $(DESTDIR)$(infodir)/$(txsh).info; \
+	    else true; fi; \
+	    rm -rf infodir; \
+	    exit 0; \
+	else \
+	    rm -rf infodir; \
+	    exit 1; \
+	fi
+.PHONY: install.info
+
+# uninstall man pages
+uninstall.man:
+	for file in $(MAN); do \
+	    rm -f $(DESTDIR)$(mandir)/man1/`echo $$file | sed 's|xsh|$(txsh)|'`; \
+	done
+.PHONY: uninstall.man
+
+# uninstall runhelp pages
+uninstall.runhelp:
+	test x"$(runhelpdir)" = x"" || rm -rf -- $(DESTDIR)$(runhelpdir)
+.PHONY: uninstall.runhelp
+
+# uninstall info pages
+uninstall.info:
+	rm -f $(DESTDIR)$(infodir)/$(txsh).info
+	rm -f $(DESTDIR)$(infodir)/$(txsh).info-[1-9]*
+.PHONY: uninstall.info
+
+# install HTML manual
+install.html: html
+	${SHELL} $(sdir_top)/mkinstalldirs $(DESTDIR)$(htmldir)
+	for file in *.html; do \
+	    $(INSTALL_DATA) $$file $(DESTDIR)$(htmldir) || exit 1; \
+	done
+.PHONY: install.html
+
+# uninstall HTML manual
+uninstall.html:
+	rm -f $(DESTDIR)$(htmldir)/*.html
+.PHONY: uninstall.html
+
+# ========== DEPENDENCIES FOR CLEANUP ==========
+
+clean-here:
+	rm -f *.html *.info* *.dvi *.ps *.pdf
+	rm -f *.aux *.cp *.cps *.fn *.fns *.ky *.kys *.log *.idx
+	rm -f *.pg *.pgs *.toc *.tp *.tps *.vr *.vrs
+	rm -rf infodir
+	rm -f texi2html.conf
+.PHONY: clean-here
+
+distclean-here: clean-here
+	rm -f Makefile
+.PHONY: distclean-here
+
+realclean-here: distclean-here
+	cd $(sdir) && rm -f xsh/modlist.yo xsh/modmenu.yo xsh/manmodmenu.yo
+	cd $(sdir) && rm -f version.yo ../META-FAQ xsh.texi $(MAN)
+	rm -f help.txt help/*
+.PHONY: realclean-here
+
+@CLEAN_MK@
+
+# ========== DEPENDENCIES FOR MAINTENANCE ==========
+
+@CONFIG_MK@

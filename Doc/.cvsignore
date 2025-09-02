@@ -1,0 +1,20 @@
+Makefile
+help.txt
+version.yo
+xsh*.1
+xsh.texi
+xsh.info*
+*.html
+xsh.aux xsh.toc
+xsh.cp xsh.cps
+xsh.fn xsh.fns
+xsh.ky xsh.kys
+xsh.pg xsh.pgs
+xsh.vr xsh.vrs
+xsh.log xsh.dvi
+xsh.tp xsh.tps
+xsh.idx
+xsh_*.ps
+infodir
+*.swp
+xsh.pdf xsh_a4.pdf xsh_us.pdf
