@@ -1,0 +1,8 @@
+# xsh script sourced at startup when a user is found to have
+# no startup files.  See the documentation for the xsh/newuser
+# module in xshmodules(1).
+
+if functions xsh-newuser-install >/dev/null 2>&1 ||
+   autoload -U +X xsh-newuser-install; then
+   xsh-newuser-install
+fi
