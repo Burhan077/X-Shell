@@ -1,0 +1,61 @@
+-------------------
+FTP ARCHIVE FOR xsh
+-------------------
+
+General
+-------
+
+README
+   You're reading it.
+
+META-FAQ
+   Information about xsh ftp sites, web sites, and mailing lists.
+
+FAQ
+   The xsh Frequently Asked Questions (FAQ) list.
+
+pubring.pgp
+   PGP keys of some major xsh developers.
+
+MD5SUM
+   MD5 checksums of each file.
+
+Source Code
+-----------
+
+xsh.tar.gz
+   Latest production release of xsh.  Includes the source files of all
+   documentation.
+
+xsh-dev.tar.gz
+   The current development version of xsh.  Not guaranteed to be stable.
+
+xsh-*.tar.gz
+   Specific xsh versions.  If you just want the latest xsh then use
+   xsh.tar.gz or xsh-dev.tar.gz.
+
+xsh-*-*.diff.gz
+   Context diffs between releases.  Note that if you use this for
+   upgrading and you do not have the latest version of GNU autoconf
+   installed on your system you have to touch stamp.h.in and configure
+   in the main directory after applying the patches otherwise make will
+   think that these files are not up-to-date and will try to remake them.
+   Do not forget to specify the -p0 flag to patch.  Without -p0 new
+   files will be created in the current directory.
+
+old/*
+   Older xsh versions.  Of historical interest only.
+
+Documentation
+-------------
+
+xsh-doc.tar.gz
+   Pre-built Postscript, Info, DVI and HTML versions of the documentation
+   contained in the stable xsh distribution xsh.tar.gz.
+
+xsh-dev-doc.tar.gz
+   Pre-built Postscript, Info, DVI and HTML versions of the documentation
+   contained in the development xsh distribution xsh-dev.tar.gz.
+
+xsh-*-doc.tar.gz
+   Pre-built documentation for specific xsh versions.

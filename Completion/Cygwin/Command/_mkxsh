@@ -1,0 +1,7 @@
+#compdef mkxsh mkxsh.exe
+
+_arguments -s -S \
+  '(--allusers -A)'{-A,--allusers}'[creates item for All Users instead of just current user]' \
+  '(--desktop -D)'{-D,--desktop}'[creates a Desktop icon for running /xsh.bat]' \
+  '(--smprograms -P)'{-P,--smprograms}'[creates a Program menu item for running /xsh.bat]' \
+  '(--help -h)'{-h,--help}'[display help information]'

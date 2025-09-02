@@ -1,0 +1,18 @@
+#autoload
+
+if [[ -n $xsh_TRACE_GENERIC_WIDGET ]]; then
+  local widget=$xsh_TRACE_GENERIC_WIDGET
+  unset xsh_TRACE_GENERIC_WIDGET
+  $widget _generic
+  return
+fi
+
+local curcontext="${curcontext:-}"
+
+if [[ -z "$curcontext" ]]; then
+  curcontext="${WIDGET}:::"
+else
+  curcontext="${WIDGET}:${curcontext#*:}"
+fi
+
+_main_complete "$@"
