@@ -1,0 +1,63 @@
+-----------------
+THE X SHELL (xsh)
+-----------------
+
+Version
+-----------------
+To install, Run the Following 
+
+  ./configure --prefix=/usr/local/xsh
+  make
+  make install
+
+This is just zsh with a different name so please use the official zsh and not this.
+This is just a fun experiment meant for learning how Basic Shells work
+
+-Installing xsh
+-Trust me and just do this in your Terminal:
+
+        sed -i 's/^bin_PROGRAMS = zsh$/bin_PROGRAMS = xsh/' Src/Makefile.in
+        sed -i 's/^zsh_SOURCES = /xsh_SOURCES = /' Src/Makefile.in
+        sed -i 's/^zsh_LDADD = /xsh_LDADD = /' Src/Makefile.in
+
+For good measure:
+
+      sed -i 's/AC_INIT(zsh/AC_INIT(xsh/' configure.ac
+
+
+The Compiled stuff will be at /usr/bin/zsh-5.9.0.2-test or something. 
+Don't just run this chack where the actual binary is. 
+
+      sudo mv /usr/bin/zsh-5.9.0.2-test  /usr/bin/xsh
+      sudo echo "/usr/bin/xsh" | sudo tee -a /etc/shells
+      chsh -s /usr/bin/xsh
+    
+For Powerlevel10K users you can create a .zshrc and paste this in
+
+      source ~/.xshrc
+
+This is all to rename your Shell, so I have to say its totally not worth it.
+--------------
+
+The instructions for compiling xsh are in the file INSTALL.  You should
+also check the file MACHINES in the top directory to see if there
+are any special instructions for your particular architecture.
+
+Note in particular the xsh/newuser module that guides new users through
+setting basic shell options without the administrator's intervention.  This
+is turned on by default.  See the section AUTOMATIC NEW USER CONFIGURATION
+in INSTALL for configuration information.
+
+Features
+--------
+
+xsh is a shell with lots of features.  For a list of some of these, see the
+file FEATURES, and for the latest changes see NEWS.  For more
+details, see the documentation.
+
+
+Again, this is all to give your shell a cool name, so I have to say its totally not worth it.
+If you want other names be sure to replace the instances of xsh with the name you prefer.
+All credit goes to the people who actually build this amazing thing. Their names are listed in Etc/contributors.
+For any issues please just use zsh as there is no difference.
+
