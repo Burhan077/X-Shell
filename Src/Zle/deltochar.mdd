@@ -1,0 +1,7 @@
+name=xsh/deltochar
+link=dynamic
+load=no
+
+moddeps="xsh/zle"
+
+objects="deltochar.o"

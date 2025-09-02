@@ -1,0 +1,7 @@
+name=xsh/net/tcp
+link=dynamic
+load=no
+functions='Functions/TCP/*'
+
+objects="tcp.o"
+autofeatures="b:ztcp"

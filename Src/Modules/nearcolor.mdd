@@ -1,0 +1,5 @@
+name=xsh/nearcolor
+link=dynamic
+load=no
+
+objects="nearcolor.o"

@@ -1,0 +1,5 @@
+name=xsh/mathfunc
+link=dynamic
+load=no
+
+objects="mathfunc.o"

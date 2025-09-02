@@ -1,0 +1,7 @@
+name=xsh/zprof
+link=dynamic
+load=no
+
+autofeatures="b:zprof"
+
+objects="zprof.o"

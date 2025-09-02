@@ -1,0 +1,7 @@
+name=xsh/mapfile
+link=dynamic
+load=no
+
+autofeatures="p:mapfile"
+
+objects="mapfile.o"

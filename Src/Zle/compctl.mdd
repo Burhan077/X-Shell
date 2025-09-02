@@ -1,0 +1,10 @@
+name=xsh/compctl
+link=either
+load=yes
+
+moddeps="xsh/complete xsh/zle"
+
+autofeatures="b:compctl b:compcall"
+
+headers="compctl.h"
+objects="compctl.o"

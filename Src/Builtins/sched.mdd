@@ -1,0 +1,7 @@
+name=xsh/sched
+link=either
+load=yes
+
+autofeatures="b:sched p:xsh_scheduled_events"
+
+objects="sched.o"

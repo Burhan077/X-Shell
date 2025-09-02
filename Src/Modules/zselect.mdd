@@ -1,0 +1,6 @@
+name=xsh/zselect
+link=dynamic
+load=no
+
+objects="zselect.o"
+autofeatures="b:zselect"

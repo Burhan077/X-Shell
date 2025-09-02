@@ -1,0 +1,7 @@
+name=xsh/complist
+link=either
+load=yes
+
+moddeps="xsh/complete xsh/zle"
+
+objects="complist.o"

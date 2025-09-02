@@ -1,0 +1,9 @@
+name=xsh/zleparameter
+link=either
+load=yes
+
+moddeps="xsh/zle"
+
+autofeatures="p:widgets p:keymaps"
+
+objects="zleparameter.o"
