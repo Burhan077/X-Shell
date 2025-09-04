@@ -155,7 +155,7 @@ supported=( "${supported_server_options[@]}" )
 available=( "${available_session_options[@]}" )
 find_changed_scope 'server=>session'
 
-supported=( "${supported_window_options[@]}" )
+supported=( "${supported_window_options[@]}" ) 
 available=( "${available_session_options[@]}" )
 find_changed_scope 'window=>session'
 
