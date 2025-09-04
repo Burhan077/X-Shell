@@ -6,7 +6,7 @@
 #
 # Esc ! -> command name
 # Esc $ -> environment variables
-# Esc @ -> machine names
+# Esc @ -> machine names 
 # Esc / -> file name
 # Esc ~ -> a user name
 # 
