@@ -4,7 +4,7 @@
 # .xshrc is sourced in interactive shells.  It
 # should contain commands to set up aliases, functions,
 # options, key bindings, etc.
-#
+# 
 
 # THIS FILE IS NOT INTENDED TO BE USED AS /etc/xshrc, NOR WITHOUT EDITING
 return 0	# Remove this line after editing this file as appropriate
