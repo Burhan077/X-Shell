@@ -6,7 +6,7 @@
   alias ThisCommandDefinitelyDoesNotExist=echo
 
   alias -g bar=echo
-
+ 
   alias '\bar=echo'
 
 %test
