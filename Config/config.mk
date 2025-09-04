@@ -8,7 +8,7 @@
 # license or royalty fees, to use, copy, modify, and distribute this
 # software and to distribute modified versions of this software for any
 # purpose, provided that the above copyright notice and the following
-# two paragraphs appear in all copies of this software.
+# two paragraphs appear in all copies of this software. 
 #
 # In no event shall Richard Coleman or the xsh Development Group be liable
 # to any party for direct, indirect, special, incidental, or consequential
