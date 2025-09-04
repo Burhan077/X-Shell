@@ -10,3 +10,4 @@ load=no
 autofeatures="b:zgetattr b:zsetattr b:zdelattr"
 
 objects="attr.o"
+
