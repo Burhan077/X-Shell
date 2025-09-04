@@ -90,7 +90,7 @@ xsh/seealso.yo xsh/tcpsys.yo xsh/zftpsys.yo xsh/zle.yo
 # ========== DEPENDENCIES FOR BUILDING ==========
 
 all: man $(runhelp) texi ../META-FAQ
-.PHONY: all
+.PHONY: all 
 
 everything: all html info xsh_a4.dvi xsh_us.dvi xsh_a4.pdf xsh_us.pdf \
             intro.a4.pdf intro.us.pdf
