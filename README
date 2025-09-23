@@ -14,7 +14,7 @@ This is just zsh with a different name so please use the official zsh and not th
 This is just a fun experiment meant for learning how Basic Shells work
 
 -Installing xsh
--Trust me and just do this in your Terminal:
+-Trust me and just do this in your Terminal:(Said the hacker lol)
 
         sed -i 's/^bin_PROGRAMS = zsh$/bin_PROGRAMS = xsh/' Src/Makefile.in
         sed -i 's/^zsh_SOURCES = /xsh_SOURCES = /' Src/Makefile.in
